@@ -18,25 +18,25 @@ class kontact(unittest.TestCase):
         self.wd.implicitly_wait(60)
 
     def test_kontact(self):
-        wd = self.wd
-
-        self.login(wd, username="admin", password="secret")
-        self.fill_contact(wd,
+        self.login(username="admin", password="secret")
+        self.fill_contact(
                           Contact(First_name="Alexey", last_name="Kozlov", nick="lolo", title="PM", organization="BHCC",
                                   address="250 Boston", cell="8574173906",
                                   email="alexey.kozlov@bhcc.mass.edu", birth="1988"))
-        self.logout(wd)
+        self.logout()
 
     def test_2_kontact(self):
-        wd = self.wd
-
-        self.login(wd, username="admin", password="secret")
-        self.fill_contact(wd,
+        self.login(username="admin", password="secret")
+        self.fill_contact(
                           Contact(First_name="", last_name="", nick="", title="", organization="", address="", cell="",
                                   email="", birth=""))
-        self.logout(wd)
+        self.logout()
 
-    def login(self, wd, username, password):
+
+
+
+
+    def login(self,username, password):
         # login
         wd = self.wd
         wd.get("http://localhost/addressbook/delete.php?part=12;13;")
@@ -48,8 +48,9 @@ class kontact(unittest.TestCase):
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
 
-    def fill_contact(self, wd, kon):
+    def fill_contact(self,kon):
         # create contact
+        wd = self.wd
         wd.find_element_by_link_text("add new").click()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -84,8 +85,9 @@ class kontact(unittest.TestCase):
         wd.find_element_by_name("byear").send_keys(kon.birth)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
-    def logout(self, wd):
+    def logout(self):
         # logout
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
     def tearDown(self):
