@@ -2,6 +2,8 @@
 from selenium.webdriver.firefox.webdriver import WebDriver
 import time, unittest
 from contact import Contact
+
+
 def is_alert_present(wd):
     try:
         wd.switch_to_alert().text
@@ -9,32 +11,35 @@ def is_alert_present(wd):
     except:
         return False
 
+
 class kontact(unittest.TestCase):
     def setUp(self):
         self.wd = WebDriver()
         self.wd.implicitly_wait(60)
-    
+
     def test_kontact(self):
         wd = self.wd
-        wd.get("http://localhost/addressbook/delete.php?part=12;13;")
-        self.login(wd, username="admin", password="secret")
-        self.fill_contact(wd, Contact(First_name="Alexey", last_name="Kozlov", nick="lolo", title="PM", organization="BHCC", address="250 Boston", cell="8574173906",
-                                      email="alexey.kozlov@bhcc.mass.edu", birth="1988"))
-        self.logout(wd)
 
+        self.login(wd, username="admin", password="secret")
+        self.fill_contact(wd,
+                          Contact(First_name="Alexey", last_name="Kozlov", nick="lolo", title="PM", organization="BHCC",
+                                  address="250 Boston", cell="8574173906",
+                                  email="alexey.kozlov@bhcc.mass.edu", birth="1988"))
+        self.logout(wd)
 
     def test_2_kontact(self):
         wd = self.wd
-        wd.get("http://localhost/addressbook/delete.php?part=12;13;")
+
         self.login(wd, username="admin", password="secret")
-        self.fill_contact(wd, Contact(First_name="", last_name="", nick="", title="", organization="", address="", cell="",
-                                      email="", birth=""))
+        self.fill_contact(wd,
+                          Contact(First_name="", last_name="", nick="", title="", organization="", address="", cell="",
+                                  email="", birth=""))
         self.logout(wd)
-
-
 
     def login(self, wd, username, password):
         # login
+        wd = self.wd
+        wd.get("http://localhost/addressbook/delete.php?part=12;13;")
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
@@ -42,7 +47,6 @@ class kontact(unittest.TestCase):
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
-
 
     def fill_contact(self, wd, kon):
         # create contact
@@ -80,13 +84,13 @@ class kontact(unittest.TestCase):
         wd.find_element_by_name("byear").send_keys(kon.birth)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
-
     def logout(self, wd):
         # logout
         wd.find_element_by_link_text("Logout").click()
 
     def tearDown(self):
         self.wd.quit()
+
 
 if __name__ == '__main__':
     unittest.main()
