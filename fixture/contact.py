@@ -7,6 +7,7 @@ class ContactHelper:
         self.app = app
 
 
+
     def fillout(self, kon):
         # create contact
         wd = self.app.wd
@@ -43,3 +44,16 @@ class ContactHelper:
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(kon.birth)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+
+
+    def delete_first_contact(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        wd.switch_to_alert().accept()
+
+
+
+
+
