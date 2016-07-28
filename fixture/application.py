@@ -1,5 +1,5 @@
 from selenium.webdriver.firefox.webdriver import WebDriver
-
+from fixture.session import SessionHelper
 
 
 class Application:
@@ -7,18 +7,9 @@ class Application:
     def __init__(self):
         self.wd = WebDriver()
         self.wd.implicitly_wait(60)
+        self.session = SessionHelper(self)
 
-    def login(self, username, password):
-        # login
-        wd = self.wd
-        wd.get("http://localhost/addressbook/delete.php?part=12;13;")
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(username)
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
+
 
     def fill_contact(self, kon):
         # create contact
@@ -57,10 +48,6 @@ class Application:
         wd.find_element_by_name("byear").send_keys(kon.birth)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
-    def logout(self):
-        # logout
-        wd = self.wd
-        wd.find_element_by_link_text("Logout").click()
 
     def destroy(self):
         self.wd.quit()
