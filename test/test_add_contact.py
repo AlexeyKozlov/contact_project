@@ -8,12 +8,12 @@ from model.contact import Contact
 
 def test_kontact(app):
     app.session.login(username="admin", password="secret")
-    app.contact.fillout(Contact(First_name="Alexey", last_name="Kozlov", nick="lolo", title="PM", organization="BHCC", address="250 Boston", cell="8574173906", email="alexey.kozlov@bhcc.mass.edu", birth="1988"))
+    app.contact.fillout(Contact(first_name="Alexey", last_name="Kozlov", nick="lolo", title="PM", organization="BHCC", address="250 Boston", cell="8574173906", email="alexey.kozlov@bhcc.mass.edu", birth="1988"))
     app.session.logout()
 
-def test_2_kontact(app):
-    app.session.login(username="admin", password="secret")
-    app.contact.fillout(Contact(First_name="", last_name="", nick="", title="", organization="", address="", cell="", email="", birth=""))
-    app.session.logout()
+#def test_2_kontact(app):
+#    app.session.login(username="admin", password="secret")
+#    app.contact.fillout(Contact(first_name="", last_name="", nick="", title="", organization="", address="", cell="", email="", birth=""))
+#    app.session.logout()
 
 
