@@ -44,7 +44,8 @@ class ContactHelper:
 
     def open_home_page(self):
         wd = self.app.wd
-        return wd.find_element_by_link_text("home").click
+        if not wd.current_url.endswith("/addressbook/") and len(wd.find_elements_by_xpath("//div[@id='content']/form[2]/div[1]/input")) >0 :
+            wd.find_element_by_link_text("home").click()
 
     def select_first_contact(self):
         wd = self.app.wd
@@ -69,3 +70,8 @@ class ContactHelper:
         self.fill_contact_form(new_contact_name)
         # submit
         wd.find_element_by_name("update").click()
+
+    def count(self):
+        wd = self.app.wd
+        self.open_home_page()
+        return len(wd.find_elements_by_name("selected[]"))
